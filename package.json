@@ -18,5 +18,9 @@
   "license": "MIT",
   "peerDependencies": {
     "react-native": "^0.23.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TaylorBriggs/react-native-typewriter.git"
   }
 }
