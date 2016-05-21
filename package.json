@@ -1,0 +1,22 @@
+{
+  "name": "react-native-typewriter",
+  "version": "0.1.0",
+  "description": "A React Native component for creating typing effects",
+  "main": "index.js",
+  "keywords": [
+    "react",
+    "react-native",
+    "component",
+    "animated",
+    "typing",
+    "typewriter"
+  ],
+  "author": "Taylor Briggs <taylor.briggs.dev@gmail.com> (http://taylor-briggs.com)",
+  "contributors": [
+    "Ian Dilling <ianbjorndilling@gmail.com>"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "react-native": "^0.23.0"
+  }
+}
