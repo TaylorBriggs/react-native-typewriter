@@ -36,6 +36,8 @@ type: `String` default: `''`
 
 Text to which the component will apply animation.
 
+If `props.text` is changed, the text will restart printing from left to right.
+
 ### typing
 
 type: `Number` default: `0`
