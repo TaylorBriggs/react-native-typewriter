@@ -28,7 +28,7 @@ export default class TypeWriter extends Component {
   }
 
   componentWillUnmount() {
-    this._stop()
+    this._clearTimeout()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -36,9 +36,12 @@ export default class TypeWriter extends Component {
     const next   = nextProps.typing
 
     if (next === 0) {
-      this._stop()
+      this._clearTimeout()
     } else if (!isEqual(active, next)) {
       this._setNextState(next)
+    } else if (!isEqual(nextProps.text, this.props.text)) {
+      this.setState(INITIAL_STATE)
+      this._start()
     }
   }
 
@@ -91,10 +94,11 @@ export default class TypeWriter extends Component {
   }
 
   _start(timeout = this.props.initialDelay) {
+    this._clearTimeout()
     this._timeoutId = setTimeout(this._setNextState, timeout)
   }
 
-  _stop() {
+  _clearTimeout() {
     if (this._timeoutId) {
       clearTimeout(this._timeoutId)
     }
