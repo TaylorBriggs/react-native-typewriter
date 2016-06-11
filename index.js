@@ -10,12 +10,12 @@ const MAX_DELAY = 100
 const TYPING_VALS = [-1, 0, 1]
 const INITIAL_STATE = { visibleChars: 0 }
 
-function isEqual(current, next) {
+function isEqual (current, next) {
   return current === next
 }
 
 export default class TypeWriter extends Component {
-  constructor(props) {
+  constructor (props) {
     super(props)
 
     this.state = INITIAL_STATE
@@ -23,54 +23,52 @@ export default class TypeWriter extends Component {
     this._setNextState = this._setNextState.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount () {
     this._start()
   }
 
-  componentWillUnmount() {
+  componentWillUnmount () {
     this._clearTimeout()
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps (nextProps) {
     const active = this.props.typing
-    const next   = nextProps.typing
+    const next = nextProps.typing
 
     if (next === 0) {
       this._clearTimeout()
     } else if (!isEqual(active, next)) {
       this._setNextState(next)
-    } else if (!isEqual(nextProps.text, this.props.text)) {
+    } else if (!isEqual(nextProps.children, this.props.children)) {
       this.setState(INITIAL_STATE)
       this._start()
     }
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     return (
       !isEqual(this.state.visibleChars, nextState.visibleChars) ||
-      !isEqual(this.props.text, nextProps.text)
+      !isEqual(this.props.children, nextProps.children)
     )
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate (prevProps, prevState) {
     const {
-      text,
-      maxDelay,
-      minDelay,
+      children,
       delayMap,
       onTyped,
       onTypingEnd
     } = this.props
     const {visibleChars} = prevState
-    const currentToken   = text[visibleChars]
-    const nextToken      = text[this.state.visibleChars]
+    const currentToken = children[visibleChars]
+    const nextToken = children[this.state.visibleChars]
 
     if (currentToken && onTyped) {
       onTyped(currentToken, visibleChars)
     }
 
     if (nextToken) {
-      let timeout = Math.round(Math.random() * (maxDelay - minDelay) + minDelay)
+      let timeout = this._getRandomTimeout()
 
       if (delayMap) {
         delayMap.forEach(({at, delay}) => {
@@ -86,26 +84,36 @@ export default class TypeWriter extends Component {
     }
   }
 
-  render() {
-    const {text, ...props} = this.props
+  render () {
+    const {children, ...props} = this.props
     const {visibleChars} = this.state
 
-    return <Text {...props}>{text.slice(0, visibleChars)}</Text>
+    return (
+      <Text {...props}>
+        {children.slice(0, visibleChars)}
+      </Text>
+    )
   }
 
-  _start(timeout = this.props.initialDelay) {
+  _start (timeout = this.props.initialDelay) {
     this._clearTimeout()
     this._timeoutId = setTimeout(this._setNextState, timeout)
   }
 
-  _clearTimeout() {
+  _clearTimeout () {
     if (this._timeoutId) {
       clearTimeout(this._timeoutId)
     }
   }
 
-  _setNextState(typing = this.props.typing) {
+  _setNextState (typing = this.props.typing) {
     this.setState({ visibleChars: this.state.visibleChars + typing })
+  }
+
+  _getRandomTimeout () {
+    const {maxDelay, minDelay} = this.props
+
+    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay)
   }
 }
 
@@ -119,20 +127,19 @@ const delayShape = PropTypes.shape({
 })
 
 TypeWriter.propTypes = {
-  text:         PropTypes.string.isRequired,
-  typing:       PropTypes.oneOf(TYPING_VALS),
-  maxDelay:     PropTypes.number,
-  minDelay:     PropTypes.number,
+  children: PropTypes.string.isRequired,
+  typing: PropTypes.oneOf(TYPING_VALS),
+  maxDelay: PropTypes.number,
+  minDelay: PropTypes.number,
   initialDelay: PropTypes.number,
-  delayMap:     PropTypes.arrayOf(delayShape),
-  onTyped:      PropTypes.func,
-  onTypingEnd:  PropTypes.func
+  delayMap: PropTypes.arrayOf(delayShape),
+  onTyped: PropTypes.func,
+  onTypingEnd: PropTypes.func
 }
 
 TypeWriter.defaultProps = {
-  text:         '',
   initialDelay: MAX_DELAY * 2,
-  maxDelay:     MAX_DELAY,
-  minDelay:     MAX_DELAY / 5,
-  typing:       TYPING_VALS[1]
+  maxDelay: MAX_DELAY,
+  minDelay: MAX_DELAY / 5,
+  typing: TYPING_VALS[1]
 }

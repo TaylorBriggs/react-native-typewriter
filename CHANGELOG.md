@@ -1,3 +1,7 @@
+## v0.3.0 (6/11/2016)
+
+* Handle typing text as children instead of a prop passed into the component
+
 ## v0.2.0 (5/26/2016)
 
 * Changing `props.text` forces the component to reset visible text and type from left to right
