@@ -21,7 +21,7 @@ import TypeWriter from 'react-native-typewriter'
 
 class TypingText extends Component {
   render() {
-    return <TypeWriter text="Hello World!" typing={1} />
+    return <TypeWriter typing={1}>Hello World!</TypeWriter>
   }
 }
 ```
@@ -29,14 +29,6 @@ class TypingText extends Component {
 ## Documentation
 
 Any props accepted by React Native's `Text` component are accepted by `TypeWriter`. These additional props are also accepted:
-
-### text
-
-type: `String` default: `''`
-
-Text to which the component will apply animation.
-
-If `props.text` is changed, the text will restart printing from left to right.
 
 ### typing
 
