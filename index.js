@@ -1,145 +1,139 @@
-'use strict'
+import {Text} from 'react-native';
+import React from 'react';
 
-import React, {
-  Component,
-  Text,
-  PropTypes
-} from 'react-native'
+const MAX_DELAY = 100;
+const TYPING_VALS = [-1, 0, 1];
+const INITIAL_STATE = {
+  visibleChars: 0
+};
 
-const MAX_DELAY = 100
-const TYPING_VALS = [-1, 0, 1]
-const INITIAL_STATE = { visibleChars: 0 }
-
-function isEqual (current, next) {
-  return current === next
+function isEqual(current, next) {
+  return current === next;
 }
 
-export default class TypeWriter extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = INITIAL_STATE
-
-    this._setNextState = this._setNextState.bind(this)
+export default class TypeWriter extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = INITIAL_STATE;
+    this.setNextState = this.setNextState.bind(this);
   }
 
-  componentDidMount () {
-    this._start()
+  componentDidMount() {
+    this.start();
   }
 
-  componentWillUnmount () {
-    this._clearTimeout()
+  componentWillUnmount() {
+    this.clearTimeout();
   }
 
-  componentWillReceiveProps (nextProps) {
-    const active = this.props.typing
-    const next = nextProps.typing
+  componentWillReceiveProps(nextProps) {
+    const active = this.props.typing;
+    const next = nextProps.typing;
 
     if (next === 0) {
-      this._clearTimeout()
+      this.clearTimeout();
     } else if (!isEqual(active, next)) {
-      this._setNextState(next)
+      this.setNextState(next);
     } else if (!isEqual(nextProps.children, this.props.children)) {
-      this.setState(INITIAL_STATE)
-      this._start()
+      this.setState(INITIAL_STATE);
+      this.start();
     }
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     return (
       !isEqual(this.state.visibleChars, nextState.visibleChars) ||
       !isEqual(this.props.children, nextProps.children)
-    )
+    );
   }
 
-  componentDidUpdate (prevProps, prevState) {
+  componentDidUpdate(prevProps, prevState) {
     const {
       children,
       delayMap,
       onTyped,
       onTypingEnd
-    } = this.props
-    const {visibleChars} = prevState
-    const currentToken = children[visibleChars]
-    const nextToken = children[this.state.visibleChars]
+    } = this.props;
+    const {visibleChars} = prevState;
+    const currentToken = children[visibleChars];
+    const nextToken = children[this.state.visibleChars];
 
     if (currentToken && onTyped) {
-      onTyped(currentToken, visibleChars)
+      onTyped(currentToken, visibleChars);
     }
 
     if (nextToken) {
-      let timeout = this._getRandomTimeout()
+      let timeout = this.getRandomTimeout();
 
       if (delayMap) {
         delayMap.forEach(({at, delay}) => {
           if (isEqual(at, visibleChars) || currentToken.match(at)) {
-            timeout += delay
+            timeout = timeout + delay;
           }
-        })
+        });
       }
 
-      this._start(timeout)
+      this.start(timeout);
     } else if (onTypingEnd) {
-      onTypingEnd()
+      onTypingEnd();
     }
   }
 
-  render () {
-    const {children, ...props} = this.props
-    const {visibleChars} = this.state
+  render() {
+    const {children, ...props} = this.props;
+    const {visibleChars} = this.state;
 
     return (
       <Text {...props}>
         {children.slice(0, visibleChars)}
       </Text>
-    )
+    );
   }
 
-  _start (timeout = this.props.initialDelay) {
-    this._clearTimeout()
-    this._timeoutId = setTimeout(this._setNextState, timeout)
+  start(timeout = this.props.initialDelay) {
+    this.clearTimeout();
+    this.timeoutId = setTimeout(this.setNextState, timeout);
   }
 
-  _clearTimeout () {
-    if (this._timeoutId) {
-      clearTimeout(this._timeoutId)
+  clearTimeout() {
+    if (this.timeoutId) {
+      clearTimeout(this.timeoutId);
     }
   }
 
-  _setNextState (typing = this.props.typing) {
-    this.setState({ visibleChars: this.state.visibleChars + typing })
+  setNextState(typing = this.props.typing) {
+    this.setState({visibleChars: this.state.visibleChars + typing});
   }
 
-  _getRandomTimeout () {
-    const {maxDelay, minDelay} = this.props
-
-    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay)
+  getRandomTimeout() {
+    const {maxDelay, minDelay} = this.props;
+    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay);
   }
 }
 
-const delayShape = PropTypes.shape({
-  at: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.instanceOf(RegExp)
+const delayShape = React.PropTypes.shape({
+  at: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number,
+    React.PropTypes.instanceOf(RegExp)
   ]),
-  delay: PropTypes.number
-})
+  delay: React.PropTypes.number
+});
 
 TypeWriter.propTypes = {
-  children: PropTypes.string.isRequired,
-  typing: PropTypes.oneOf(TYPING_VALS),
-  maxDelay: PropTypes.number,
-  minDelay: PropTypes.number,
-  initialDelay: PropTypes.number,
-  delayMap: PropTypes.arrayOf(delayShape),
-  onTyped: PropTypes.func,
-  onTypingEnd: PropTypes.func
-}
+  children: React.PropTypes.string.isRequired,
+  typing: React.PropTypes.oneOf(TYPING_VALS),
+  maxDelay: React.PropTypes.number,
+  minDelay: React.PropTypes.number,
+  initialDelay: React.PropTypes.number,
+  delayMap: React.PropTypes.arrayOf(delayShape),
+  onTyped: React.PropTypes.func,
+  onTypingEnd: React.PropTypes.func
+};
 
 TypeWriter.defaultProps = {
   initialDelay: MAX_DELAY * 2,
   maxDelay: MAX_DELAY,
   minDelay: MAX_DELAY / 5,
   typing: TYPING_VALS[1]
-}
+};
