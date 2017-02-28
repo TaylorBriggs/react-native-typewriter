@@ -1,4 +1,4 @@
-import {Text} from 'react-native';
+import { Text } from 'react-native';
 import React from 'react';
 
 const MAX_DELAY = 100;
@@ -20,10 +20,6 @@ export default class TypeWriter extends React.Component {
 
   componentDidMount() {
     this.start();
-  }
-
-  componentWillUnmount() {
-    this.clearTimeout();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,7 +50,7 @@ export default class TypeWriter extends React.Component {
       onTyped,
       onTypingEnd
     } = this.props;
-    const {visibleChars} = prevState;
+    const { visibleChars } = prevState;
     const currentToken = children[visibleChars];
     const nextToken = children[this.state.visibleChars];
 
@@ -66,9 +62,9 @@ export default class TypeWriter extends React.Component {
       let timeout = this.getRandomTimeout();
 
       if (delayMap) {
-        delayMap.forEach(({at, delay}) => {
+        delayMap.forEach(({ at, delay }) => {
           if (isEqual(at, visibleChars) || currentToken.match(at)) {
-            timeout = timeout + delay;
+            timeout += delay;
           }
         });
       }
@@ -79,20 +75,18 @@ export default class TypeWriter extends React.Component {
     }
   }
 
-  render() {
-    const {children, ...props} = this.props;
-    const {visibleChars} = this.state;
-
-    return (
-      <Text {...props}>
-        {children.slice(0, visibleChars)}
-      </Text>
-    );
+  componentWillUnmount() {
+    this.clearTimeout();
   }
 
-  start(timeout = this.props.initialDelay) {
-    this.clearTimeout();
-    this.timeoutId = setTimeout(this.setNextState, timeout);
+
+  setNextState(typing = this.props.typing) {
+    this.setState({ visibleChars: this.state.visibleChars + typing });
+  }
+
+  getRandomTimeout() {
+    const { maxDelay, minDelay } = this.props;
+    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay);
   }
 
   clearTimeout() {
@@ -101,13 +95,20 @@ export default class TypeWriter extends React.Component {
     }
   }
 
-  setNextState(typing = this.props.typing) {
-    this.setState({visibleChars: this.state.visibleChars + typing});
+  start(timeout = this.props.initialDelay) {
+    this.clearTimeout();
+    this.timeoutId = setTimeout(this.setNextState, timeout);
   }
 
-  getRandomTimeout() {
-    const {maxDelay, minDelay} = this.props;
-    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay);
+  render() {
+    const { children, ...props } = this.props;
+    const { visibleChars } = this.state;
+
+    return (
+      <Text {...props}>
+        {children.slice(0, visibleChars)}
+      </Text>
+    );
   }
 }
 
