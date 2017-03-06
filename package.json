@@ -15,18 +15,28 @@
   "contributors": [
     "Ian Dilling <ianbjorndilling@gmail.com>"
   ],
+  "pre-commit": [
+    "lint"
+  ],
   "license": "MIT",
   "peerDependencies": {
-    "react-native": "^0.23.0"
+    "react-native": "^0.26.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/TaylorBriggs/react-native-typewriter.git"
   },
   "devDependencies": {
-    "standard": "*"
+    "eslint": "3.16.1",
+    "eslint-config-airbnb": "14.1.0",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "4.0.0",
+    "eslint-plugin-react": "6.10.0",
+    "pre-commit": "1.2.2",
+    "react": "15.4.2",
+    "react-native": "0.41.2"
   },
   "scripts": {
-    "lint": "standard"
+    "lint": "eslint **/*.js"
   }
 }
