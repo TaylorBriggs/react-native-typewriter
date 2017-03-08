@@ -1,17 +1,34 @@
-## v0.3.0 (6/11/2016)
+# Change Log
+All notable changes to this project will be documented in this file.
 
-* Handle typing text as children instead of a prop passed into the component
+The format is based on [Keep a Changelog](http://keepachangelog.com/)
+and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## v0.2.0 (5/26/2016)
+## [Unreleased]
+### Added
+- ESLint and pre-commit hook
 
-* Changing `props.text` forces the component to reset visible text and type from left to right
+### Changed
+- Update react-native peer dependency
 
-## v0.1.1 (5/21/2016)
+## [0.3.0] – 2016-06-11
+### Changed
+- Handle typing text as children instead of a prop passed into the component
 
-* Fixed `package.json` to reference Github repository
+## [0.2.0] – 2016-05-26
+### Changed
+- Changing `props.text` forces the component to reset visible text and type from left to right
 
-## v0.1.0 (5/21/2016)
+## [0.1.1] – 2016-05-21
+### Fixed
+- `package.json` references Github repository
 
-* Initial version, with cues taken from [react-typewriter](react-typewriter)
+## 0.1.0 – 2016-05-21
+- Initial version, with cues taken from [react-typewriter]
+
+[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.1...v0.2.0
+[0.1.1]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.0...v0.1.1
 
 [react-typewriter]: https://github.com/ianbjorndilling/react-typewriter
