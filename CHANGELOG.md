@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.4.0] – 2017-03-14
 ### Added
 - ESLint and pre-commit hook
 
@@ -26,7 +28,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ## 0.1.0 – 2016-05-21
 - Initial version, with cues taken from [react-typewriter]
 
-[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...v0.4.0
 [0.3.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.0...v0.1.1
