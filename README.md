@@ -14,9 +14,8 @@ $ npm install --save react-native-typewriter
 Pass text and a typing direction into the component to control its animation.
 
 ```javascript
-import React, {
-  Component
-} from 'react-native'
+
+import React, { Component } from 'react'
 import TypeWriter from 'react-native-typewriter'
 
 class TypingText extends Component {
