@@ -141,13 +141,14 @@ class TypeWriter extends Component {
     )];
     if (fixed) {
       const invisibleString = children.slice(visibleChars)
+      props.style = {
+        ...props.style,
+        opacity: 0,
+      }
       components.push(
         <Text
           { ...props }
-          key="invisible-string"
-          style={{
-            opacity: 0,
-          }}>
+          key="invisible-string">
           {invisibleString}
         </Text>
       );
