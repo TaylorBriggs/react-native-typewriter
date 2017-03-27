@@ -128,10 +128,33 @@ class TypeWriter extends Component {
   render() {
     const { children, ...props } = this.props;
     const { visibleChars } = this.state;
+    const { fixed } = this.props;
 
+    const visibleString = children.slice(0, visibleChars)
+
+    let components = [(
+      <Text
+        { ...props }
+        key="visible-string">
+        {visibleString}
+      </Text>
+    )];
+    if (fixed) {
+      const invisibleString = children.slice(visibleChars)
+      components.push(
+        <Text
+          { ...props }
+          key="invisible-string"
+          style={{
+            opacity: 0,
+          }}>
+          {invisibleString}
+        </Text>
+      );
+    }
     return (
-      <Text {...props}>
-        {children.slice(0, visibleChars)}
+      <Text>
+        {components}
       </Text>
     );
   }
