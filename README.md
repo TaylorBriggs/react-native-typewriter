@@ -76,6 +76,12 @@ type: `Function` default: `none`
 
 Called once the typing animation has completed. This callback is **not** called if `props.typing` is changed to `0` before the animation completes.
 
+### fixed
+
+type: `Boolean` default: `false`
+
+This flag will ensure the enclosing container's size and shape is fixed. Prevents the text from shifting around as it grows into its container.
+
 ## License
 
 Released under the MIT license. See [LICENSE](LICENSE) for details.

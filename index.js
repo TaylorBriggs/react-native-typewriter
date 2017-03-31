@@ -27,7 +27,8 @@ const defaultProps = {
   initialDelay: MAX_DELAY * 2,
   maxDelay: MAX_DELAY,
   minDelay: MAX_DELAY / 5,
-  typing: 0
+  typing: 0,
+  fixed: false,
 };
 
 function isEqual(current, next) {
@@ -126,12 +127,33 @@ class TypeWriter extends Component {
   }
 
   render() {
-    const { children, ...props } = this.props;
+    const { fixed, children, ...props } = this.props;
     const { visibleChars } = this.state;
 
+    const visibleString = children.slice(0, visibleChars)
+
+    let components = [(
+      <Text
+        { ...props }
+        key="visible-string">
+        {visibleString}
+      </Text>
+    )];
+    if (fixed) {
+      const invisibleString = children.slice(visibleChars)
+      const invisibleStyle = { ...props.style, opacity: 0 }
+      components.push(
+        <Text
+          { ...props }
+          style={invisibleStyle}
+          key="invisible-string">
+          {invisibleString}
+        </Text>
+      );
+    }
     return (
-      <Text {...props}>
-        {children.slice(0, visibleChars)}
+      <Text>
+        {components}
       </Text>
     );
   }
