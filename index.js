@@ -127,9 +127,8 @@ class TypeWriter extends Component {
   }
 
   render() {
-    const { children, ...props } = this.props;
+    const { fixed, children, ...props } = this.props;
     const { visibleChars } = this.state;
-    const { fixed } = this.props;
 
     const visibleString = children.slice(0, visibleChars)
 
@@ -142,13 +141,11 @@ class TypeWriter extends Component {
     )];
     if (fixed) {
       const invisibleString = children.slice(visibleChars)
-      props.style = {
-        ...props.style,
-        opacity: 0,
-      }
+      const invisibleStyle = { ...props.style, opacity: 0 }
       components.push(
         <Text
           { ...props }
+          style={invisibleStyle}
           key="invisible-string">
           {invisibleString}
         </Text>
