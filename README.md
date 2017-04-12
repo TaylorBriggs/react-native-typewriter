@@ -1,9 +1,15 @@
 # react-native-typewriter
 
-A [React Native](react-native) component for
-creating typing effects. Inspired by [react-typewriter](react-typewriter).
+A [React Native] component for creating typing effects.
+Inspired by [react-typewriter].
 
 ## Installation
+
+```
+$ yarn add react-native-typewriter
+```
+
+OR
 
 ```
 $ npm install --save react-native-typewriter
@@ -33,7 +39,15 @@ Any props accepted by React Native's `Text` component are accepted by `TypeWrite
 
 type: `Number` default: `0`
 
-A value of 1 types text left to right until completion. A value of -1 erases text from right to left. A value of 0 stops the animation.
+A value of 1 types text left to right until completion. A value of -1 erases
+text from right to left. A value of 0 stops the animation.
+
+### fixed
+
+type: `Boolean` default: `false`
+
+This flag will ensure the enclosing container's size and shape is fixed.
+Prevents the text from shifting around as it grows into its container.
 
 ### maxDelay
 
@@ -68,23 +82,20 @@ let delayMap = [
 
 type: `Function` default: `none`
 
-A callback called when each token is typed or erased during the animation. The function is called with two arguments: `(String token, Number previousVisibleCharacters)`.
+A callback called when each token is typed or erased during the animation. The
+function is called with two arguments:
+`(String token, Number previousVisibleCharacters)`.
 
 ### onTypingEnd
 
 type: `Function` default: `none`
 
-Called once the typing animation has completed. This callback is **not** called if `props.typing` is changed to `0` before the animation completes.
-
-### fixed
-
-type: `Boolean` default: `false`
-
-This flag will ensure the enclosing container's size and shape is fixed. Prevents the text from shifting around as it grows into its container.
+Called once the typing animation has completed. This callback is **not** called
+if `props.typing` is changed to `0` before the animation completes.
 
 ## License
 
 Released under the MIT license. See [LICENSE](LICENSE) for details.
 
-[react-native]: https://facebook.github.io/react-native/
+[React Native]: https://facebook.github.io/react-native/
 [react-typewriter]: https://github.com/ianbjorndilling/react-typewriter
