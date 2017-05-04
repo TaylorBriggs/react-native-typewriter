@@ -12,6 +12,7 @@ const delayShape = PropTypes.shape({
 
 const propTypes = {
   children: PropTypes.string.isRequired,
+  fixed: PropTypes.bool,
   typing: PropTypes.oneOf([-1, 0, 1]),
   maxDelay: PropTypes.number,
   minDelay: PropTypes.number,
@@ -28,7 +29,7 @@ const defaultProps = {
   maxDelay: MAX_DELAY,
   minDelay: MAX_DELAY / 5,
   typing: 0,
-  fixed: false,
+  fixed: false
 };
 
 function isEqual(current, next) {
@@ -130,36 +131,37 @@ class TypeWriter extends Component {
     const { fixed, children, ...props } = this.props;
     const { visibleChars } = this.state;
 
-    const visibleString = children.slice(0, visibleChars)
+    const visibleString = children.slice(0, visibleChars);
 
-    let components = [(
+    const components = [(
       <Text
-        { ...props }
-        key="visible-string">
+        {...props}
+        key="visible-string"
+      >
         {visibleString}
       </Text>
     )];
+
     if (fixed) {
-      const invisibleString = children.slice(visibleChars)
-      const invisibleStyle = { ...props.style, opacity: 0 }
+      const invisibleString = children.slice(visibleChars);
+      const invisibleStyle = { opacity: 0 };
+
       components.push(
         <Text
-          { ...props }
-          style={invisibleStyle}
-          key="invisible-string">
+          {...props}
+          style={[...props.style, invisibleStyle]}
+          key="invisible-string"
+        >
           {invisibleString}
         </Text>
       );
     }
-    return (
-      <Text>
-        {components}
-      </Text>
-    );
+
+    return <Text>{components}</Text>;
   }
 }
 
 TypeWriter.propTypes = propTypes;
 TypeWriter.defaultProps = defaultProps;
 
-export default TypeWriter
+export default TypeWriter;

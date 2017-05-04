@@ -1,11 +1,11 @@
 {
   "extends": "airbnb",
   "rules": {
-    "comma-dangle": [2, "never"],
-    "import/no-extraneous-dependencies": 0,
-    "no-mixed-operators": 0,
+    "comma-dangle": ["error", "never"],
+    "import/no-extraneous-dependencies": "off",
+    "no-mixed-operators": "off",
     "react/jsx-filename-extension": [
-      1,
+      "warn",
       {
         "extensions": [
           ".js",
@@ -13,6 +13,6 @@
         ]
       }
     ],
-    "react/require-default-props": 0
+    "react/require-default-props": "off"
   }
 }
