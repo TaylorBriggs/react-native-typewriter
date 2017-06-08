@@ -149,7 +149,7 @@ class TypeWriter extends Component {
       components.push(
         <Text
           {...props}
-          style={[...props.style, invisibleStyle]}
+          style={[...(props.style || {}), invisibleStyle]}
           key="invisible-string"
         >
           {invisibleString}
