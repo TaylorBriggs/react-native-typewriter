@@ -1,6 +1,6 @@
 {
   "name": "react-native-typewriter",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "A React Native component for creating typing effects",
   "main": "index.js",
   "license": "MIT",
