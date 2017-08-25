@@ -29,7 +29,8 @@ const defaultProps = {
   maxDelay: MAX_DELAY,
   minDelay: MAX_DELAY / 5,
   typing: 0,
-  fixed: false
+  fixed: false,
+  style: {}
 };
 
 function isEqual(current, next) {
