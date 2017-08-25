@@ -1,56 +1,60 @@
 # Change Log
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+## [Unreleased](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.2...HEAD)
 
-## [Unreleased]
 
-## [0.5.2] – 2017-08-25
-### Fixed
-- Set default style props
+## [v0.5.2](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.5.2) (2017-08-25)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.1...v0.5.2)
 
-## [0.5.1] – 2017-05-04
-### Fixed
-- Unhandled JS Exception with `fixed` and `style` props
+**Merged pull requests:**
 
-## [0.5.0] — 2017-04-11
-### Added
-- `fixed` prop to ensure the component container's size does not change while
-performing the typing effect
+- Fix crash when fixed is true and style is undefined [\#12](https://github.com/TaylorBriggs/react-native-typewriter/pull/12) ([TaylorBriggs](https://github.com/TaylorBriggs))
 
-### Fixed
-- Example code react import statement in README
+## [v0.5.1](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.5.1) (2017-05-04)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.0...v0.5.1)
 
-## [0.4.0] – 2017-03-14
-### Added
-- ESLint and pre-commit hook
+**Closed issues:**
 
-### Changed
-- Update react-native peer dependency
+- Unhandled JS Exception on fixed={true} [\#8](https://github.com/TaylorBriggs/react-native-typewriter/issues/8)
 
-## [0.3.0] – 2016-06-11
-### Changed
-- Handle typing text as children instead of a prop passed into the component
+**Merged pull requests:**
 
-## [0.2.0] – 2016-05-26
-### Changed
-- Changing `props.text` forces the component to reset visible text and type from left to right
+- Fix invisible text style [\#9](https://github.com/TaylorBriggs/react-native-typewriter/pull/9) ([TaylorBriggs](https://github.com/TaylorBriggs))
+- Release v0.5.0 [\#7](https://github.com/TaylorBriggs/react-native-typewriter/pull/7) ([TaylorBriggs](https://github.com/TaylorBriggs))
 
-## [0.1.1] – 2016-05-21
-### Fixed
-- `package.json` references Github repository
+## [v0.5.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.5.0) (2017-04-12)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.4.0...v0.5.0)
 
-## 0.1.0 – 2016-05-21
-- Initial version, with cues taken from [react-typewriter]
+**Merged pull requests:**
 
-[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.2...HEAD
-[0.5.2]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.1...v0.5.2
-[0.5.1]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.0...v0.5.1
-[0.5.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.4.0...v0.5.0
-[0.4.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...v0.4.0
-[0.3.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.1...v0.2.0
-[0.1.1]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.0...v0.1.1
+- Feature/props.fixed [\#6](https://github.com/TaylorBriggs/react-native-typewriter/pull/6) ([maxkomarychev](https://github.com/maxkomarychev))
+- Release 0.4.0 [\#5](https://github.com/TaylorBriggs/react-native-typewriter/pull/5) ([TaylorBriggs](https://github.com/TaylorBriggs))
 
-[react-typewriter]: https://github.com/ianbjorndilling/react-typewriter
+## [v0.4.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.4.0) (2017-03-15)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...v0.4.0)
+
+**Merged pull requests:**
+
+- Reformat changelog [\#4](https://github.com/TaylorBriggs/react-native-typewriter/pull/4) ([TaylorBriggs](https://github.com/TaylorBriggs))
+- Fix react import syntax; linting changes [\#3](https://github.com/TaylorBriggs/react-native-typewriter/pull/3) ([petermikitsh](https://github.com/petermikitsh))
+
+## [v0.3.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.3.0) (2016-06-11)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.2.0...v0.3.0)
+
+**Merged pull requests:**
+
+- Handle typing text as children [\#2](https://github.com/TaylorBriggs/react-native-typewriter/pull/2) ([TaylorBriggs](https://github.com/TaylorBriggs))
+- Retype on props.text change [\#1](https://github.com/TaylorBriggs/react-native-typewriter/pull/1) ([TaylorBriggs](https://github.com/TaylorBriggs))
+
+## [v0.2.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.2.0) (2016-05-27)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.1...v0.2.0)
+
+## [v0.1.1](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.1.1) (2016-05-21)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.1.0...v0.1.1)
+
+## [v0.1.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.1.0) (2016-05-21)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/[Unreleased]...v0.1.0)
+
+- inspired by [react-typewriter](https://github.com/ianbjorndilling/react-typewriter)
+
+\* *This Change Log was automatically generated by [github_changelog_generator](https://github.com/skywinder/Github-Changelog-Generator)*
