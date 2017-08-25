@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+## [0.5.2] – 2017-08-25
+### Fixed
+- Set default style props
+
 ## [0.5.1] – 2017-05-04
 ### Fixed
 - Unhandled JS Exception with `fixed` and `style` props
@@ -40,7 +44,8 @@ performing the typing effect
 ## 0.1.0 – 2016-05-21
 - Initial version, with cues taken from [react-typewriter]
 
-[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.1...v0.5.2
 [0.5.1]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.0...v0.5.1
 [0.5.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.4.0...v0.5.0
 [0.4.0]: https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.3.0...v0.4.0
