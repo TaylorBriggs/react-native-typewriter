@@ -20,7 +20,8 @@
   "contributors": [
     "Ian Dilling <ianbjorndilling@gmail.com>",
     "Peter Mikitsh <peter.mikitsh@gmail.com>",
-    "maxkomarychev (https://github.com/maxkomarychev)"
+    "maxkomarychev (https://github.com/maxkomarychev)",
+    "Przemek Sobstel <przemek@sobstel.org> (http://www.sobstel.org)"
   ],
   "dependencies": {
     "prop-types": "^15.5.7"
