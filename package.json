@@ -23,8 +23,8 @@
     "maxkomarychev (https://github.com/maxkomarychev)"
   ],
   "peerDependencies": {
-    "react": "15.x",
-    "react-native": "^0.42.0"
+    "react": ">=15.4.x",
+    "react-native": ">=0.41.x"
   },
   "devDependencies": {
     "eslint": "3.19.0",
