@@ -22,6 +22,9 @@
     "Peter Mikitsh <peter.mikitsh@gmail.com>",
     "maxkomarychev (https://github.com/maxkomarychev)"
   ],
+  "dependencies": {
+    "prop-types": "^15.5.7"
+  },
   "peerDependencies": {
     "react": ">=15.4.x",
     "react-native": ">=0.41.x"
