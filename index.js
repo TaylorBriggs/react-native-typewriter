@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text } from 'react-native';
+import { Text, ViewPropTypes } from 'react-native';
 
 const delayShape = PropTypes.shape({
   at: PropTypes.oneOfType([
@@ -20,7 +20,8 @@ const propTypes = {
   initialDelay: PropTypes.number,
   delayMap: PropTypes.arrayOf(delayShape),
   onTyped: PropTypes.func,
-  onTypingEnd: PropTypes.func
+  onTypingEnd: PropTypes.func,
+  style: ViewPropTypes.style
 };
 
 const MAX_DELAY = 100;
@@ -34,9 +35,7 @@ const defaultProps = {
   style: {}
 };
 
-function isEqual(current, next) {
-  return current === next;
-}
+const isEqual = (current, next) => current === next;
 
 class TypeWriter extends Component {
   constructor(props) {
@@ -52,23 +51,26 @@ class TypeWriter extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const active = this.props.typing;
-    const next = nextProps.typing;
+    const { children, typing: current } = this.props;
+    const { typing: next } = nextProps;
 
     if (next === 0) {
       this.clearTimeout();
-    } else if (!isEqual(active, next)) {
+    } else if (!isEqual(current, next)) {
       this.setNextState(next);
-    } else if (!isEqual(nextProps.children, this.props.children)) {
+    } else if (!isEqual(children, nextProps.children)) {
       this.setState({ visibleChars: 0 });
       this.start();
     }
   }
 
   shouldComponentUpdate(nextProps, nextState) {
+    const { children } = this.props;
+    const { visibleChars } = this.state;
+
     return (
-      !isEqual(this.state.visibleChars, nextState.visibleChars) ||
-      !isEqual(this.props.children, nextProps.children)
+      !isEqual(visibleChars, nextState.visibleChars)
+      || !isEqual(children, nextProps.children)
     );
   }
 
@@ -79,9 +81,10 @@ class TypeWriter extends Component {
       onTyped,
       onTypingEnd
     } = this.props;
+    const { visibleChars: visible } = this.state;
     const { visibleChars } = prevState;
     const currentToken = children[visibleChars];
-    const nextToken = children[this.state.visibleChars];
+    const nextToken = children[visible];
 
     if (currentToken && onTyped) {
       onTyped(currentToken, visibleChars);
@@ -108,8 +111,12 @@ class TypeWriter extends Component {
     this.clearTimeout();
   }
 
-  setNextState(typing = this.props.typing) {
-    this.setState({ visibleChars: this.state.visibleChars + typing });
+  setNextState(typing) {
+    const { typing: defaultTyping } = this.props;
+
+    this.setState(({ visibleChars }) => ({
+      visibleChars: visibleChars + (typing || defaultTyping)
+    }));
   }
 
   getRandomTimeout() {
@@ -124,9 +131,11 @@ class TypeWriter extends Component {
     }
   }
 
-  start(timeout = this.props.initialDelay) {
+  start(timeout) {
+    const { initialDelay } = this.props;
+
     this.clearTimeout();
-    this.timeoutId = setTimeout(this.setNextState, timeout);
+    this.timeoutId = setTimeout(this.setNextState, (timeout || initialDelay));
   }
 
   render() {
