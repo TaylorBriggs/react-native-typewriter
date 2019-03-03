@@ -16,7 +16,7 @@
     "typing",
     "typewriter"
   ],
-  "author": "Taylor Briggs <taylor.briggs.dev@gmail.com> (http://taylor-briggs.com)",
+  "author": "Taylor Briggs <taylor.briggs.dev@gmail.com> (https://taylor-briggs.com)",
   "contributors": [
     "Ian Dilling <ianbjorndilling@gmail.com>",
     "Peter Mikitsh <peter.mikitsh@gmail.com>",
@@ -38,7 +38,7 @@
     "eslint-plugin-react": "6.10.3",
     "pre-commit": "1.2.2",
     "react": "15.4.2",
-    "react-native": "0.42.0"
+    "react-native": "0.58.6"
   },
   "scripts": {
     "lint": "eslint **/*.js"
