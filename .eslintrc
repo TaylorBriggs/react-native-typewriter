@@ -1,5 +1,15 @@
 {
-  "extends": "airbnb",
+  "env": {
+    "jest/globals": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "airbnb",
+    "plugin:jest/recommended",
+    "plugin:react/recommended"
+  ],
+  "parser": "babel-eslint",
+  "plugins": ["jest", "react"],
   "rules": {
     "comma-dangle": ["error", "never"],
     "import/no-extraneous-dependencies": "off",
@@ -13,6 +23,7 @@
         ]
       }
     ],
+    "react/no-unescaped-entities": "off",
     "react/require-default-props": "off"
   }
 }
