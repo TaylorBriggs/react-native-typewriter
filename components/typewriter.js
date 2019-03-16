@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text, ViewPropTypes } from 'react-native';
+import { getTokenAt, hideSubstring } from '../utils';
 
 const Delay = PropTypes.shape({
   at: PropTypes.oneOfType([
@@ -12,11 +13,13 @@ const Delay = PropTypes.shape({
 });
 
 const DIRECTIONS = [-1, 0, 1];
+const DISPLAY_NONE = { style: { display: 'none' } };
+const HIDE_COLOR = { color: 'transparent' };
 const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
   static propTypes = {
-    children: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     delayMap: PropTypes.arrayOf(Delay),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
@@ -40,8 +43,10 @@ export default class TypeWriter extends Component {
   };
 
   static getDerivedStateFromProps(props, state) {
-    if (props.typing !== state.direction) {
-      return { direction: props.typing };
+    const { typing } = props;
+
+    if (typing !== state.direction) {
+      return { direction: typing, visibleChars: state.visibleChars + typing };
     }
 
     return null;
@@ -65,29 +70,20 @@ export default class TypeWriter extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    this.clearTimeout();
-
     const { typing } = this.props;
 
-    if (prevProps.typing !== typing) {
-      if (typing === 0) return;
+    this.clearTimeout();
 
-      if (typing === -1) {
-        this.typeNextChar();
-        this.startTyping(this.getRandomTimeout());
-        return;
-      }
-    }
+    if (typing === 0) return;
 
     const {
-      children,
       delayMap,
       onTyped,
       onTypingEnd
     } = this.props;
     const { visibleChars } = this.state;
-    const currentToken = children[prevState.visibleChars];
-    const nextToken = children[visibleChars];
+    const currentToken = getTokenAt(this, prevState.visibleChars);
+    const nextToken = getTokenAt(this, visibleChars);
 
     if (currentToken) {
       onTyped(currentToken, visibleChars);
@@ -138,32 +134,27 @@ export default class TypeWriter extends Component {
     }));
   }
 
-  renderInvisibleString(fixed, children) {
-    const { visibleChars } = this.state;
-
-    if (!fixed) return null;
-
-    return (
-      <Text style={{ opacity: 0 }}>
-        {children.slice(visibleChars)}
-      </Text>
-    );
-  }
-
-  renderVisibleString(children) {
-    const { visibleChars } = this.state;
-
-    return children.slice(0, visibleChars);
-  }
-
   render() {
-    const { fixed, children, ...props } = this.props;
-
-    return (
-      <Text {...props}>
-        {this.renderVisibleString(children)}
-        {this.renderInvisibleString(fixed, children)}
+    const {
+      children,
+      delayMap,
+      fixed,
+      initialDelay,
+      maxDelay,
+      minDelay,
+      onTyped,
+      onTypingEnd,
+      typing,
+      ...rest
+    } = this.props;
+    const { visibleChars } = this.state;
+    const hideProps = fixed ? HIDE_COLOR : DISPLAY_NONE;
+    const component = (
+      <Text {...rest}>
+        {children}
       </Text>
     );
+
+    return hideSubstring(component, hideProps, visibleChars);
   }
 }
