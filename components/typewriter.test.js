@@ -11,11 +11,7 @@ describe('<TypeWriter />', () => {
       </TypeWriter>
     );
 
-    expect(wrapper.contains(
-      <Text style={{ display: 'none' }}>
-        This text is invisible.
-      </Text>
-    )).toEqual(true);
+    expect(wrapper.text()).toEqual('');
   });
 
   describe('typing', () => {
@@ -31,11 +27,7 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(200);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          his text will be typed.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('T');
     });
 
     test('cancels its timeout on unmount', () => {
@@ -64,11 +56,7 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(0);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          yped immediately.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('T');
     });
 
     test('continues typing within the min and max delay times', () => {
@@ -81,20 +69,12 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(255);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          ped every 50-100ms.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Ty');
 
       jest.advanceTimersByTime(220);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          every 50-100ms.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Typed ');
 
       jest.advanceTimersByTime(825);
       wrapper.update();
@@ -115,20 +95,12 @@ describe('<TypeWriter />', () => {
       wrapper.setProps({ typing: 0 });
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          top typing after half a second.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('This will s');
 
       jest.advanceTimersByTime(50);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          top typing after half a second.
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('This will s');
     });
 
     test('can type backwards', () => {
@@ -141,21 +113,17 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(65);
       wrapper.update();
 
-      expect(wrapper.contains(<Text style={{ display: 'none' }} />)).toEqual(false);
+      expect(wrapper.text()).toEqual('Hello world!');
 
       wrapper.setProps({ typing: -1 });
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>!</Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello world');
 
       jest.advanceTimersByTime(5);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>d!</Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello worl');
     });
 
     test('#onTyped', () => {
@@ -239,27 +207,17 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(5);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          llo World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('He');
 
       jest.advanceTimersByTime(455);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          lo World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hel');
 
       jest.advanceTimersByTime(10);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}> World!</Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello');
     });
 
     test('applies an extra delay to a matching string', () => {
@@ -282,36 +240,22 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(5);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          llo World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('He');
 
       jest.advanceTimersByTime(255);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          lo World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hel');
 
       jest.advanceTimersByTime(255);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          o World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hell');
 
       jest.advanceTimersByTime(5);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}> World!</Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello');
     });
 
     test('applies an extra delay when matching a pattern', () => {
@@ -334,45 +278,27 @@ describe('<TypeWriter />', () => {
       jest.advanceTimersByTime(0);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          ello World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('H');
 
       jest.advanceTimersByTime(205);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          llo World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('He');
 
       jest.advanceTimersByTime(10);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          o World!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hell');
 
       jest.advanceTimersByTime(205);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}> World!</Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello');
 
       jest.advanceTimersByTime(10);
       wrapper.update();
 
-      expect(wrapper.contains(
-        <Text style={{ display: 'none' }}>
-          orld!
-        </Text>
-      )).toEqual(true);
+      expect(wrapper.text()).toEqual('Hello W');
     });
   });
 
@@ -390,6 +316,11 @@ describe('<TypeWriter />', () => {
     const colorText = wrapper.find({ style: { color: 'red' } });
 
     expect(colorText).toBeDefined();
-    expect(colorText.contains(<Text style={{ display: 'none' }}>World!</Text>)).toEqual(true);
+    expect(colorText.last().text()).toEqual('');
+
+    jest.advanceTimersByTime(2);
+    wrapper.update();
+
+    expect(wrapper.find({ style: { color: 'red' } }).last().text()).toEqual('Wo');
   });
 });

@@ -4,8 +4,6 @@ import { Text } from 'react-native';
 import { getTokenAt, hideSubstring } from '../utils';
 
 const DIRECTIONS = [-1, 0, 1];
-const DISPLAY_NONE = { display: 'none' };
-const HIDE_COLOR = { color: 'transparent' };
 const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
@@ -151,13 +149,12 @@ export default class TypeWriter extends Component {
       ...rest
     } = this.props;
     const { visibleChars } = this.state;
-    const hideStyle = fixed ? HIDE_COLOR : DISPLAY_NONE;
     const component = (
       <Text {...rest}>
         {children}
       </Text>
     );
 
-    return hideSubstring(component, hideStyle, visibleChars);
+    return hideSubstring(component, fixed, visibleChars);
   }
 }

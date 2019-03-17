@@ -1,7 +1,11 @@
 import React, { Children } from 'react';
-import { Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-export default function hideSubstring(component, hideStyle = {}, start, end) {
+const styles = StyleSheet.create({
+  hidden: { color: 'transparent' }
+});
+
+export default function hideSubstring(component, fixed, start, end) {
   let index = 0;
   let endIndex;
   let startIndex;
@@ -31,25 +35,30 @@ export default function hideSubstring(component, hideStyle = {}, start, end) {
     }
 
     const strEnd = child.length + index;
-    let styled = null;
+    let newChild = null;
 
     if (strEnd > startIndex && (!endIndex || index < endIndex)) {
       const relStartIndex = startIndex - index;
-      const relEndIndex = endIndex ? (endIndex - index) : strEnd;
       const leftSubstring = child.substring(0, relStartIndex);
+      const relEndIndex = endIndex ? (endIndex - index) : strEnd;
       const rightSubstring = child.substring(relEndIndex, strEnd);
-      const styledString = (
-        <Text style={hideStyle}>
-          {child.substring(relStartIndex, relEndIndex)}
-        </Text>
-      );
 
-      styled = [leftSubstring, styledString, rightSubstring];
+      if (fixed) {
+        const styledString = (
+          <Text style={styles.hidden}>
+            {child.substring(relStartIndex, relEndIndex)}
+          </Text>
+        );
+
+        newChild = [leftSubstring, styledString, rightSubstring];
+      } else {
+        newChild = [leftSubstring, rightSubstring];
+      }
     }
 
     index = strEnd;
 
-    return styled || child;
+    return newChild || child;
   }
 
   return cloneWithHiddenSubstrings(component);
