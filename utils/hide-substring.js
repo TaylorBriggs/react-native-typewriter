@@ -1,7 +1,7 @@
 import React, { Children } from 'react';
 import { Text } from 'react-native';
 
-export default function hideSubstring(component, hideProps = {}, start, end) {
+export default function hideSubstring(component, hideStyle = {}, start, end) {
   let index = 0;
   let endIndex;
   let startIndex;
@@ -39,7 +39,7 @@ export default function hideSubstring(component, hideProps = {}, start, end) {
       const leftSubstring = child.substring(0, relStartIndex);
       const rightSubstring = child.substring(relEndIndex, strEnd);
       const styledString = (
-        <Text {...hideProps}>
+        <Text style={hideStyle}>
           {child.substring(relStartIndex, relEndIndex)}
         </Text>
       );

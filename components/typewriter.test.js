@@ -211,7 +211,7 @@ describe('<TypeWriter />', () => {
       wrapper.update();
 
       expect(wrapper.contains(
-        <Text color="transparent">
+        <Text style={{ color: 'transparent' }}>
           {children.slice(2)}
         </Text>
       )).toEqual(true);
@@ -381,13 +381,13 @@ describe('<TypeWriter />', () => {
       <TypeWriter initialDelay={0} minDelay={1} maxDelay={1} typing={1}>
         Hello
         {' '}
-        <Text color="red">World!</Text>
+        <Text style={{ color: 'red' }}>World!</Text>
       </TypeWriter>
     );
 
     jest.advanceTimersByTime(5);
     wrapper.update();
-    const colorText = wrapper.find({ color: 'red' });
+    const colorText = wrapper.find({ style: { color: 'red' } });
 
     expect(colorText).toBeDefined();
     expect(colorText.contains(<Text style={{ display: 'none' }}>World!</Text>)).toEqual(true);

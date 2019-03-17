@@ -1,33 +1,36 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Text, ViewPropTypes } from 'react-native';
+import { Text } from 'react-native';
 import { getTokenAt, hideSubstring } from '../utils';
 
-const Delay = PropTypes.shape({
-  at: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.instanceOf(RegExp)
-  ]),
-  delay: PropTypes.number
-});
-
 const DIRECTIONS = [-1, 0, 1];
-const DISPLAY_NONE = { style: { display: 'none' } };
+const DISPLAY_NONE = { display: 'none' };
 const HIDE_COLOR = { color: 'transparent' };
 const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    delayMap: PropTypes.arrayOf(Delay),
+    delayMap: PropTypes.arrayOf(
+      PropTypes.shape({
+        at: PropTypes.oneOfType([
+          PropTypes.string,
+          PropTypes.number,
+          PropTypes.instanceOf(RegExp)
+        ]),
+        delay: PropTypes.number
+      })
+    ),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
     maxDelay: PropTypes.number,
     minDelay: PropTypes.number,
     onTyped: PropTypes.func,
     onTypingEnd: PropTypes.func,
-    style: ViewPropTypes.style,
+    style: PropTypes.oneOfType([
+      PropTypes.object,
+      PropTypes.array
+    ]),
     typing: PropTypes.oneOf(DIRECTIONS)
   };
 
@@ -148,13 +151,13 @@ export default class TypeWriter extends Component {
       ...rest
     } = this.props;
     const { visibleChars } = this.state;
-    const hideProps = fixed ? HIDE_COLOR : DISPLAY_NONE;
+    const hideStyle = fixed ? HIDE_COLOR : DISPLAY_NONE;
     const component = (
       <Text {...rest}>
         {children}
       </Text>
     );
 
-    return hideSubstring(component, hideProps, visibleChars);
+    return hideSubstring(component, hideStyle, visibleChars);
   }
 }
