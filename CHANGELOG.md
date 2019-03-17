@@ -1,5 +1,22 @@
 # Change Log
 
+## [v0.6.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.6.0)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.3...v0.5.4)
+
+Closed issues:
+
+- Support nested `<Text>` elements
+  [\#18](https://github.com/TaylorBriggs/react-native-typewriter/issues/18)
+
+## [v0.5.4](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.5.4)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.3...v0.5.4)
+
+Closed issues:
+
+- Do not spread style props
+  [\#16](https://github.com/TaylorBriggs/react-native-typewriter/issues/16)
+
+
 ## [v0.5.3](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.5.3) (2017-10-09)
 [Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.2...v0.5.3)
 
