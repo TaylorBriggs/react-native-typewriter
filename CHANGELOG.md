@@ -1,7 +1,15 @@
 # Change Log
 
+## [v0.6.1](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.6.1)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.6.0...v0.6.1)
+
+Closed issues:
+
+- Fix typing with mixed children of nested `<Text>` elements and strings
+  [\#18](https://github.com/TaylorBriggs/react-native-typewriter/issues/18)
+
 ## [v0.6.0](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.6.0)
-[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.3...v0.5.4)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.5.4...v0.6.0)
 
 Closed issues:
 
