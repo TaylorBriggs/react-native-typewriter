@@ -323,4 +323,25 @@ describe('<TypeWriter />', () => {
 
     expect(wrapper.find({ style: { color: 'red' } }).last().text()).toEqual('Wo');
   });
+
+  test('handles nested Text elements anywhere in the children', () => {
+    const wrapper = mount(
+      <TypeWriter initialDelay={0} minDelay={1} maxDelay={1} typing={1}>
+        Hello
+        {' '}
+        <Text style={{ color: 'red' }}>World!</Text>
+        {' '}
+        This is from TypeWriter.
+      </TypeWriter>
+    );
+
+    jest.advanceTimersByTime(36);
+    wrapper.update();
+
+
+    expect(wrapper.text()).toEqual('Hello World! This is from TypeWriter.');
+    expect(wrapper.containsMatchingElement(
+      <Text style={{ color: 'red' }}>World!</Text>
+    )).toBe(true);
+  });
 });

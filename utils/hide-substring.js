@@ -21,12 +21,8 @@ export default function hideSubstring(component, fixed, start, end) {
   function cloneWithHiddenSubstrings(element) {
     const { children } = element.props;
 
-    if (children) {
-      /* eslint-disable-next-line no-use-before-define */
-      return React.cloneElement(element, {}, Children.map(children, hide));
-    }
-
-    return element;
+    /* eslint-disable-next-line no-use-before-define */
+    return React.cloneElement(element, {}, Children.map(children, hide));
   }
 
   function hide(child) {
@@ -39,20 +35,20 @@ export default function hideSubstring(component, fixed, start, end) {
 
     if (strEnd > startIndex && (!endIndex || index < endIndex)) {
       const relStartIndex = startIndex - index;
-      const leftSubstring = child.substring(0, relStartIndex);
       const relEndIndex = endIndex ? (endIndex - index) : strEnd;
-      const rightSubstring = child.substring(relEndIndex, strEnd);
+      const leftString = child.substring(0, relStartIndex);
+      const rightString = child.substring(relEndIndex, strEnd);
 
-      if (fixed) {
+      if (!fixed) {
+        newChild = [leftString, rightString];
+      } else {
         const styledString = (
           <Text style={styles.hidden}>
             {child.substring(relStartIndex, relEndIndex)}
           </Text>
         );
 
-        newChild = [leftSubstring, styledString, rightSubstring];
-      } else {
-        newChild = [leftSubstring, rightSubstring];
+        newChild = [leftString, styledString, rightString];
       }
     }
 

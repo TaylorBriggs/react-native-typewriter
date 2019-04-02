@@ -12,23 +12,23 @@ export default function getTokenAt(component, index) {
     const { length } = children;
     let childIndex = 0;
     let child;
+    let token;
 
-    while (childIndex < length) {
+    while (!token && childIndex < length) {
       child = children[childIndex];
 
       if (typeof child !== 'string') {
-        return findToken(child);
+        token = findToken(child);
+      } else if (innerIndex - child.length < 0) {
+        token = child.charAt(innerIndex);
+      } else {
+        innerIndex -= child.length;
       }
 
-      if (innerIndex - child.length < 0) {
-        return child.charAt(innerIndex);
-      }
-
-      innerIndex -= child.length;
       childIndex += 1;
     }
 
-    return undefined;
+    return token;
   }
 
   return findToken(component);
