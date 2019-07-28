@@ -126,6 +126,25 @@ describe('<TypeWriter />', () => {
       expect(wrapper.text()).toEqual('Hello worl');
     });
 
+    test('starts typing again from 0 if the children change', () => {
+      const wrapper = mount(
+        <TypeWriter initialDelay={0} maxDelay={5} minDelay={5} typing={1}>
+          This is the original text.
+        </TypeWriter>
+      );
+
+      jest.advanceTimersByTime(65);
+      expect(wrapper.text()).toEqual('This is the or');
+
+      wrapper.setProps({ children: 'Text has been changed' });
+      wrapper.update();
+
+      expect(wrapper.text()).toEqual('');
+
+      jest.advanceTimersByTime(20);
+      expect(wrapper.text()).toEqual('Text ');
+    });
+
     test('#onTyped', () => {
       const onTyped = jest.fn();
       mount(
