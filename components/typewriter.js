@@ -45,9 +45,10 @@ export default class TypeWriter extends Component {
 
   static getDerivedStateFromProps(props, state) {
     const { typing } = props;
+    const { direction, visibleChars } = state;
 
-    if (typing !== state.direction) {
-      return { direction: typing, visibleChars: state.visibleChars + typing };
+    if (typing !== direction) {
+      return { direction: typing, visibleChars: visibleChars + typing };
     }
 
     return null;
@@ -71,11 +72,16 @@ export default class TypeWriter extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { typing } = this.props;
+    const { children, typing } = this.props;
 
     this.clearTimeout();
 
     if (typing === 0) return;
+
+    if (children !== prevProps.children) {
+      this.reset();
+      return;
+    }
 
     const {
       delayMap,
@@ -123,6 +129,12 @@ export default class TypeWriter extends Component {
     if (this.timeoutId) {
       clearTimeout(this.timeoutId);
     }
+  }
+
+  reset() {
+    const { initialDelay } = this.props;
+
+    this.setState({ visibleChars: 0 }, () => this.startTyping(initialDelay));
   }
 
   startTyping(delay) {

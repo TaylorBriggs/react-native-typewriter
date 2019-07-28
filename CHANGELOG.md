@@ -1,5 +1,13 @@
 # Change Log
 
+## [v0.6.2](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.6.2)
+[Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.6.1...v0.6.2)
+
+Closed issues:
+
+- Fix visible characters state when children props change
+  [\#25](https://github.com/TaylorBriggs/react-native-typewriter/issues/25)
+
 ## [v0.6.1](https://github.com/TaylorBriggs/react-native-typewriter/tree/v0.6.1)
 [Full Changelog](https://github.com/TaylorBriggs/react-native-typewriter/compare/v0.6.0...v0.6.1)
 
