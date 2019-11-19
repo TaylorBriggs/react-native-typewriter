@@ -78,6 +78,12 @@ let delayMap = [
 ]
 ```
 
+### initialDelay
+
+type: `Number` default: `200`
+
+The time in milliseconds before the first token is typed.
+
 ### onTyped
 
 type: `Function` default: `none`
