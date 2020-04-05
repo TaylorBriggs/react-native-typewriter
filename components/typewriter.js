@@ -126,8 +126,9 @@ export default class TypeWriter extends Component {
   }
 
   clearTimeout() {
-    if (this.timeoutId) {
+    if (this.timeoutId != null) {
       clearTimeout(this.timeoutId);
+      this.timeoutId = null;
     }
   }
 
