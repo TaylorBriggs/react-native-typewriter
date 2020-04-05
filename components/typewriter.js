@@ -14,10 +14,10 @@ export default class TypeWriter extends Component {
         at: PropTypes.oneOfType([
           PropTypes.string,
           PropTypes.number,
-          PropTypes.instanceOf(RegExp)
+          PropTypes.instanceOf(RegExp),
         ]),
-        delay: PropTypes.number
-      })
+        delay: PropTypes.number,
+      }),
     ),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
@@ -27,9 +27,9 @@ export default class TypeWriter extends Component {
     onTypingEnd: PropTypes.func,
     style: PropTypes.oneOfType([
       PropTypes.object,
-      PropTypes.array
+      PropTypes.array,
     ]),
-    typing: PropTypes.oneOf(DIRECTIONS)
+    typing: PropTypes.oneOf(DIRECTIONS),
   };
 
   static defaultProps = {
@@ -40,7 +40,7 @@ export default class TypeWriter extends Component {
     onTyped() {},
     onTypingEnd() {},
     style: {},
-    typing: 0
+    typing: 0,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -59,7 +59,7 @@ export default class TypeWriter extends Component {
 
     this.state = {
       direction: props.typing,
-      visibleChars: 0
+      visibleChars: 0,
     };
 
     this.typeNextChar = this.typeNextChar.bind(this);
@@ -86,7 +86,7 @@ export default class TypeWriter extends Component {
     const {
       delayMap,
       onTyped,
-      onTypingEnd
+      onTypingEnd,
     } = this.props;
     const { visibleChars } = this.state;
     const currentToken = getTokenAt(this, prevState.visibleChars);
@@ -126,8 +126,9 @@ export default class TypeWriter extends Component {
   }
 
   clearTimeout() {
-    if (this.timeoutId) {
+    if (this.timeoutId != null) {
       clearTimeout(this.timeoutId);
+      this.timeoutId = null;
     }
   }
 
@@ -143,7 +144,7 @@ export default class TypeWriter extends Component {
 
   typeNextChar() {
     this.setState(({ direction, visibleChars }) => ({
-      visibleChars: visibleChars + direction
+      visibleChars: visibleChars + direction,
     }));
   }
 

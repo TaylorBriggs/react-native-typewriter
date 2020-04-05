@@ -8,7 +8,7 @@ describe('<TypeWriter />', () => {
     const wrapper = mount(
       <TypeWriter>
         This text is invisible.
-      </TypeWriter>
+      </TypeWriter>,
     );
 
     expect(wrapper.text()).toEqual('');
@@ -21,7 +21,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter typing={1} minDelay={5} maxDelay={10}>
           This text will be typed.
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(200);
@@ -36,7 +36,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter initialDelay={0} minDelay={5} maxDelay={10} typing={1}>
           Hello World!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(4);
@@ -50,7 +50,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter initialDelay={0} typing={1}>
           Typed immediately.
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(0);
@@ -63,7 +63,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter typing={1} minDelay={50} maxDelay={55}>
           Typed every 50-100ms.
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(255);
@@ -80,7 +80,7 @@ describe('<TypeWriter />', () => {
       wrapper.update();
 
       expect(wrapper.contains(
-        <Text style={{ display: 'none' }} />
+        <Text style={{ display: 'none' }} />,
       )).toEqual(false);
     });
 
@@ -88,7 +88,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter initialDelay={0} minDelay={50} maxDelay={50} typing={1}>
           This will stop typing after half a second.
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(500);
@@ -107,7 +107,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter initialDelay={0} minDelay={5} maxDelay={5} typing={1}>
           Hello world!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(65);
@@ -130,7 +130,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter initialDelay={0} maxDelay={5} minDelay={5} typing={1}>
           This is the original text.
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(65);
@@ -156,7 +156,7 @@ describe('<TypeWriter />', () => {
           typing={1}
         >
           Hello World!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(5);
@@ -175,7 +175,7 @@ describe('<TypeWriter />', () => {
           typing={1}
         >
           short
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(25);
@@ -191,7 +191,7 @@ describe('<TypeWriter />', () => {
       const wrapper = mount(
         <TypeWriter fixed initialDelay={0} minDelay={5} maxDelay={5} typing={1}>
           {children}
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(9);
@@ -200,7 +200,7 @@ describe('<TypeWriter />', () => {
       expect(wrapper.contains(
         <Text style={{ color: 'transparent' }}>
           {children.slice(2)}
-        </Text>
+        </Text>,
       )).toEqual(true);
     });
   });
@@ -209,7 +209,7 @@ describe('<TypeWriter />', () => {
     test('applies an extra delay when matching the index', () => {
       const delayMap = [{
         at: 2,
-        delay: 450
+        delay: 450,
       }];
       const wrapper = mount(
         <TypeWriter
@@ -220,7 +220,7 @@ describe('<TypeWriter />', () => {
           typing={1}
         >
           Hello World!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(5);
@@ -242,7 +242,7 @@ describe('<TypeWriter />', () => {
     test('applies an extra delay to a matching string', () => {
       const delayMap = [{
         at: 'l',
-        delay: 250
+        delay: 250,
       }];
       const wrapper = mount(
         <TypeWriter
@@ -253,7 +253,7 @@ describe('<TypeWriter />', () => {
           typing={1}
         >
           Hello World!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(5);
@@ -280,7 +280,7 @@ describe('<TypeWriter />', () => {
     test('applies an extra delay when matching a pattern', () => {
       const delayMap = [{
         at: /[aeiou]/,
-        delay: 200
+        delay: 200,
       }];
       const wrapper = mount(
         <TypeWriter
@@ -291,7 +291,7 @@ describe('<TypeWriter />', () => {
           typing={1}
         >
           Hello World!
-        </TypeWriter>
+        </TypeWriter>,
       );
 
       jest.advanceTimersByTime(0);
@@ -327,7 +327,7 @@ describe('<TypeWriter />', () => {
         Hello
         {' '}
         <Text style={{ color: 'red' }}>World!</Text>
-      </TypeWriter>
+      </TypeWriter>,
     );
 
     jest.advanceTimersByTime(5);
@@ -351,7 +351,7 @@ describe('<TypeWriter />', () => {
         <Text style={{ color: 'red' }}>World!</Text>
         {' '}
         This is from TypeWriter.
-      </TypeWriter>
+      </TypeWriter>,
     );
 
     jest.advanceTimersByTime(36);
@@ -360,7 +360,7 @@ describe('<TypeWriter />', () => {
 
     expect(wrapper.text()).toEqual('Hello World! This is from TypeWriter.');
     expect(wrapper.containsMatchingElement(
-      <Text style={{ color: 'red' }}>World!</Text>
+      <Text style={{ color: 'red' }}>World!</Text>,
     )).toBe(true);
   });
 });
