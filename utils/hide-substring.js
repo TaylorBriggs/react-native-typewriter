@@ -2,7 +2,7 @@ import React, { Children } from 'react';
 import { StyleSheet, Text } from 'react-native';
 
 const styles = StyleSheet.create({
-  hidden: { color: 'transparent' }
+  hidden: { color: 'transparent' },
 });
 
 export default function hideSubstring(component, fixed, start, end) {
