@@ -101,7 +101,7 @@ export default class TypeWriter extends Component {
 
       if (delayMap) {
         delayMap.forEach(({ at, delay }) => {
-          if (at === visibleChars || currentToken.match(at)) {
+          if (at === visibleChars || (currentToken && currentToken.match(at)) ) {
             timeout += delay;
           }
         });
