@@ -42,6 +42,12 @@ type: `Number` default: `0`
 A value of 1 types text left to right until completion. A value of -1 erases
 text from right to left. A value of 0 stops the animation.
 
+### startTyped
+
+type: `Boolean` default: `false`
+
+A true value will make the value typed out when the component renders, this is useful when one wants to show a static value and change to a different value making the latter being typed out.
+
 ### fixed
 
 type: `Boolean` default: `false`
