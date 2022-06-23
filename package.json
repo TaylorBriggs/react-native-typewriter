@@ -43,7 +43,7 @@
     "eslint-plugin-react": "7.12.4",
     "jest": "24.1.0",
     "jest-enzyme": "7.0.1",
-    "jsdom": "13.2.0",
+    "jsdom": "16.5.0",
     "pre-commit": "1.2.2",
     "react": "16.11.0",
     "react-dom": "16.8.3",
