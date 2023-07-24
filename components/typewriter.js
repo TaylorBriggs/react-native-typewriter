@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Text } from 'react-native';
-import { getTokenAt, hideSubstring } from '../utils';
+import { getTokenAt, hideSubstring, getNewDelayMap } from '../utils';
 
 const DIRECTIONS = [-1, 0, 1];
 const MAX_DELAY = 100;
@@ -62,6 +62,8 @@ export default class TypeWriter extends Component {
       visibleChars: 0,
     };
 
+    const oldDelayMap = props.delayMap || [];
+    this.delayMap = getNewDelayMap(oldDelayMap, props.children);
     this.typeNextChar = this.typeNextChar.bind(this);
   }
 
@@ -79,12 +81,12 @@ export default class TypeWriter extends Component {
     if (typing === 0) return;
 
     if (children !== prevProps.children) {
+      this.delayMap = getNewDelayMap(this.delayMap, children);
       this.reset();
       return;
     }
 
     const {
-      delayMap,
       onTyped,
       onTypingEnd,
     } = this.props;
@@ -99,9 +101,9 @@ export default class TypeWriter extends Component {
     if (nextToken) {
       let timeout = this.getRandomTimeout();
 
-      if (delayMap) {
-        delayMap.forEach(({ at, delay }) => {
-          if (at === visibleChars || (currentToken && currentToken.match(at)) ) {
+      if (this.delayMap) {
+        this.delayMap.forEach(({ at, delay }) => {
+          if (currentToken && at === visibleChars) {
             timeout += delay;
           }
         });
@@ -126,7 +128,7 @@ export default class TypeWriter extends Component {
   }
 
   clearTimeout() {
-    if (this.timeoutId != null) {
+    if (this.timeoutId) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;
     }
@@ -134,7 +136,6 @@ export default class TypeWriter extends Component {
 
   reset() {
     const { initialDelay } = this.props;
-
     this.setState({ visibleChars: 0 }, () => this.startTyping(initialDelay));
   }
 
@@ -151,7 +152,6 @@ export default class TypeWriter extends Component {
   render() {
     const {
       children,
-      delayMap,
       fixed,
       initialDelay,
       maxDelay,
