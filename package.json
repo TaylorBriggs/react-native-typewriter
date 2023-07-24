@@ -21,7 +21,8 @@
     "Ian Dilling <ianbjorndilling@gmail.com>",
     "Peter Mikitsh <peter.mikitsh@gmail.com>",
     "maxkomarychev (https://github.com/maxkomarychev)",
-    "Przemek Sobstel <przemek@sobstel.org> (http://www.sobstel.org)"
+    "Przemek Sobstel <przemek@sobstel.org> (http://www.sobstel.org)",
+    "Pedro Muniz <https://salesp07.github.io>"
   ],
   "dependencies": {
     "prop-types": "^15.5.7"
