@@ -1,3 +1,7 @@
+### Update: July 25, 2023
+
+This repo hasn't been maintained for about two years and I don't have any plans to continue working on it.
+
 # react-native-typewriter
 
 A [React Native] component for creating typing effects.
