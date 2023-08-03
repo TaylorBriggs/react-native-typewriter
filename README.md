@@ -6,13 +6,13 @@ Inspired by [react-typewriter].
 ## Installation
 
 ```
-$ yarn add react-native-typewriter
+$ yarn add @salesp07/react-native-typewriter
 ```
 
 OR
 
 ```
-$ npm install --save react-native-typewriter
+$ npm install @salesp07/react-native-typewriter
 ```
 
 ## Usage
