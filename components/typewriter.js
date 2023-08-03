@@ -8,6 +8,7 @@ const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
   static propTypes = {
+    startTyped: PropTypes.bool,
     children: PropTypes.node.isRequired,
     delayMap: PropTypes.arrayOf(
       PropTypes.shape({
@@ -33,6 +34,7 @@ export default class TypeWriter extends Component {
   };
 
   static defaultProps = {
+    startTyped: false,
     fixed: false,
     initialDelay: MAX_DELAY * 2,
     maxDelay: MAX_DELAY,
@@ -150,6 +152,7 @@ export default class TypeWriter extends Component {
 
   render() {
     const {
+      startTyped,
       children,
       delayMap,
       fixed,
@@ -167,6 +170,10 @@ export default class TypeWriter extends Component {
         {children}
       </Text>
     );
+
+    if(startTyped){
+    return component
+    }
 
     return hideSubstring(component, fixed, visibleChars);
   }
