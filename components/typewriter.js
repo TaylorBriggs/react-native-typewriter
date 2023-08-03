@@ -1,7 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Text } from 'react-native';
-import { getTokenAt, hideSubstring, getNewDelayMap } from '../utils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Text } from "react-native";
+import {
+  getTokenAt,
+  hideSubstring,
+  getNewDelayMap,
+  extractTextFromChildren,
+} from "../utils";
 
 const DIRECTIONS = [-1, 0, 1];
 const MAX_DELAY = 100;
@@ -17,7 +22,7 @@ export default class TypeWriter extends Component {
           PropTypes.instanceOf(RegExp),
         ]),
         delay: PropTypes.number,
-      }),
+      })
     ),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
@@ -25,10 +30,7 @@ export default class TypeWriter extends Component {
     minDelay: PropTypes.number,
     onTyped: PropTypes.func,
     onTypingEnd: PropTypes.func,
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array,
-    ]),
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     typing: PropTypes.oneOf(DIRECTIONS),
   };
 
@@ -80,16 +82,17 @@ export default class TypeWriter extends Component {
 
     if (typing === 0) return;
 
-    if (children !== prevProps.children) {
+    if (
+      children !== prevProps.children &&
+      extractTextFromChildren(children) !==
+        extractTextFromChildren(prevProps.children)
+    ) {
       this.delayMap = getNewDelayMap(this.delayMap, children);
       this.reset();
       return;
     }
 
-    const {
-      onTyped,
-      onTypingEnd,
-    } = this.props;
+    const { onTyped, onTypingEnd } = this.props;
     const { visibleChars } = this.state;
     const currentToken = getTokenAt(this, prevState.visibleChars);
     const nextToken = getTokenAt(this, visibleChars);
@@ -162,11 +165,7 @@ export default class TypeWriter extends Component {
       ...rest
     } = this.props;
     const { visibleChars } = this.state;
-    const component = (
-      <Text {...rest}>
-        {children}
-      </Text>
-    );
+    const component = <Text {...rest}>{children}</Text>;
 
     return hideSubstring(component, fixed, visibleChars);
   }
