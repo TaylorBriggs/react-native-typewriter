@@ -5,3 +5,4 @@ setup-tests.js
 coverage/
 *tags*
 *.test.js
+.github
