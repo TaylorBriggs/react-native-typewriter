@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Text } from 'react-native';
 import { getTokenAt, hideSubstring } from '../utils';
 
-const DIRECTIONS = [-1, 0, 1];
+const DIRECTIONS = [-1, 0, 10];
 const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
