@@ -36,7 +36,7 @@ export default class TypeWriter extends Component {
 
   static defaultProps = {
     fixed: false,
-    initialDelay: MAX_DELAY * 2,
+    initialDelay: 0,
     maxDelay: MAX_DELAY,
     minDelay: MAX_DELAY / 5,
     onTyped() {},
@@ -78,8 +78,9 @@ export default class TypeWriter extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { children, typing } = this.props;
 
-    this.clearTimeout();
+    if (this.halted) return;
 
+    this.clearTimeout();
     if (typing === 0) return;
 
     if (
@@ -127,7 +128,7 @@ export default class TypeWriter extends Component {
   getRandomTimeout() {
     const { maxDelay, minDelay } = this.props;
 
-    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay);
+    return maxDelay;
   }
 
   clearTimeout() {
@@ -143,7 +144,11 @@ export default class TypeWriter extends Component {
   }
 
   startTyping(delay) {
-    this.timeoutId = setTimeout(this.typeNextChar, delay);
+    this.halted = true;
+    this.timeoutId = setTimeout(() => {
+      this.halted = false;
+      this.typeNextChar();
+    }, delay);
   }
 
   typeNextChar() {
