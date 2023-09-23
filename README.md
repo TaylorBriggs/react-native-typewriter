@@ -48,17 +48,11 @@ type: `Boolean` default: `false`
 This flag will ensure the enclosing container's size and shape is fixed.
 Prevents the text from shifting around as it grows into its container.
 
-### maxDelay
+### delay
 
 type: `Number` default: `100`
 
-The maximum delay between each typed token in milliseconds.
-
-### minDelay
-
-type: `Number` default: `20`
-
-The minimum delay between each typed token in milliseconds.
+The delay between each typed token in milliseconds.
 
 ### delayMap
 
