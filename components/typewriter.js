@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Text } from 'react-native';
-import { getTokenAt, hideSubstring } from '../utils';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Text } from "react-native";
+import {
+  getTokenAt,
+  hideSubstring,
+  getNewDelayMap,
+  extractTextFromChildren,
+} from "../utils";
 
 const DIRECTIONS = [-1, 0, 1];
-const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
   static propTypes = {
@@ -17,26 +21,21 @@ export default class TypeWriter extends Component {
           PropTypes.instanceOf(RegExp),
         ]),
         delay: PropTypes.number,
-      }),
+      })
     ),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
-    maxDelay: PropTypes.number,
-    minDelay: PropTypes.number,
+    delay: PropTypes.number,
     onTyped: PropTypes.func,
     onTypingEnd: PropTypes.func,
-    style: PropTypes.oneOfType([
-      PropTypes.object,
-      PropTypes.array,
-    ]),
+    style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
     typing: PropTypes.oneOf(DIRECTIONS),
   };
 
   static defaultProps = {
     fixed: false,
-    initialDelay: MAX_DELAY * 2,
-    maxDelay: MAX_DELAY,
-    minDelay: MAX_DELAY / 5,
+    initialDelay: 0,
+    delay: 100,
     onTyped() {},
     onTypingEnd() {},
     style: {},
@@ -62,6 +61,8 @@ export default class TypeWriter extends Component {
       visibleChars: 0,
     };
 
+    const oldDelayMap = props.delayMap || [];
+    this.delayMap = getNewDelayMap(oldDelayMap, props.children);
     this.typeNextChar = this.typeNextChar.bind(this);
   }
 
@@ -74,20 +75,22 @@ export default class TypeWriter extends Component {
   componentDidUpdate(prevProps, prevState) {
     const { children, typing } = this.props;
 
-    this.clearTimeout();
+    if (this.halted) return;
 
+    this.clearTimeout();
     if (typing === 0) return;
 
-    if (children !== prevProps.children) {
+    if (
+      children !== prevProps.children &&
+      extractTextFromChildren(children) !==
+        extractTextFromChildren(prevProps.children)
+    ) {
+      this.delayMap = getNewDelayMap(this.delayMap, children);
       this.reset();
       return;
     }
 
-    const {
-      delayMap,
-      onTyped,
-      onTypingEnd,
-    } = this.props;
+    const { onTyped, onTypingEnd } = this.props;
     const { visibleChars } = this.state;
     const currentToken = getTokenAt(this, prevState.visibleChars);
     const nextToken = getTokenAt(this, visibleChars);
@@ -97,11 +100,11 @@ export default class TypeWriter extends Component {
     }
 
     if (nextToken) {
-      let timeout = this.getRandomTimeout();
+      let timeout = this.props.delay;
 
-      if (delayMap) {
-        delayMap.forEach(({ at, delay }) => {
-          if (at === visibleChars || (currentToken && currentToken.match(at)) ) {
+      if (this.delayMap) {
+        this.delayMap.forEach(({ at, delay }) => {
+          if (currentToken && at === visibleChars) {
             timeout += delay;
           }
         });
@@ -119,14 +122,8 @@ export default class TypeWriter extends Component {
     this.clearTimeout();
   }
 
-  getRandomTimeout() {
-    const { maxDelay, minDelay } = this.props;
-
-    return Math.round(Math.random() * (maxDelay - minDelay) + minDelay);
-  }
-
   clearTimeout() {
-    if (this.timeoutId != null) {
+    if (this.timeoutId) {
       clearTimeout(this.timeoutId);
       this.timeoutId = null;
     }
@@ -134,12 +131,15 @@ export default class TypeWriter extends Component {
 
   reset() {
     const { initialDelay } = this.props;
-
     this.setState({ visibleChars: 0 }, () => this.startTyping(initialDelay));
   }
 
   startTyping(delay) {
-    this.timeoutId = setTimeout(this.typeNextChar, delay);
+    this.halted = true;
+    this.timeoutId = setTimeout(() => {
+      this.halted = false;
+      this.typeNextChar();
+    }, delay);
   }
 
   typeNextChar() {
@@ -151,22 +151,16 @@ export default class TypeWriter extends Component {
   render() {
     const {
       children,
-      delayMap,
       fixed,
       initialDelay,
-      maxDelay,
-      minDelay,
+      delay,
       onTyped,
       onTypingEnd,
       typing,
       ...rest
     } = this.props;
     const { visibleChars } = this.state;
-    const component = (
-      <Text {...rest}>
-        {children}
-      </Text>
-    );
+    const component = <Text {...rest}>{children}</Text>;
 
     return hideSubstring(component, fixed, visibleChars);
   }

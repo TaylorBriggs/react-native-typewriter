@@ -10,13 +10,13 @@ Inspired by [react-typewriter].
 ## Installation
 
 ```
-$ yarn add react-native-typewriter
+$ yarn add @salesp07/react-native-typewriter
 ```
 
 OR
 
 ```
-$ npm install --save react-native-typewriter
+$ npm install @salesp07/react-native-typewriter
 ```
 
 ## Usage
@@ -24,13 +24,12 @@ $ npm install --save react-native-typewriter
 Pass text and a typing direction into the component to control its animation.
 
 ```javascript
-
-import React, { Component } from 'react'
-import TypeWriter from 'react-native-typewriter'
+import React, { Component } from "react";
+import TypeWriter from "react-native-typewriter";
 
 class TypingText extends Component {
   render() {
-    return <TypeWriter typing={1}>Hello World!</TypeWriter>
+    return <TypeWriter typing={1}>Hello World!</TypeWriter>;
   }
 }
 ```
@@ -53,17 +52,11 @@ type: `Boolean` default: `false`
 This flag will ensure the enclosing container's size and shape is fixed.
 Prevents the text from shifting around as it grows into its container.
 
-### maxDelay
+### delay
 
 type: `Number` default: `100`
 
-The maximum delay between each typed token in milliseconds.
-
-### minDelay
-
-type: `Number` default: `20`
-
-The minimum delay between each typed token in milliseconds.
+The delay between each typed token in milliseconds.
 
 ### delayMap
 
@@ -76,11 +69,17 @@ let delayMap = [
   // increase delay by 100ms at index 4
   { at: 4, delay: 100 },
   // increase delay by 400ms following every '.' character
-  { at: '.', delay: 400 },
-  // decrease delay by 200ms following every '!' character
-  { at: /!/, delay: -200 }
-]
+  { at: ".", delay: 400 },
+  // increase delay by 500ms following every instance of "hello!" in the string
+  { at: "hello!", delay: 500 },
+  // decrease delay by 200ms following every instance of '!?' in the string (`\` is an escape character)
+  { at: /!\?/g, delay: -200 },
+  // increase delay by 1000ms following every last adjacent punctuation character
+  { at: /[.!?:;](?![.!?:;])/g, delay: 1000 },
+];
 ```
+
+#### OBS: If you're using a Regular Expression, make sure to include the global flag `g`, since the code uses [matchAll()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll)
 
 ### initialDelay
 
