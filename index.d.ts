@@ -25,16 +25,10 @@ interface TypeWriterProps extends TextProps {
   fixed?: boolean;
 
   /**
-   * The maximum delay between each typed token in milliseconds.
+   * The delay between each typed token in milliseconds.
    * @default 100
    */
-  maxDelay?: number;
-
-  /**
-   * The minimum delay between each typed token in milliseconds.
-   * default 20
-   */
-  minDelay?: number;
+  delay?: number;
 
   /**
    * Adds additional delay to specific characters before the next character is typed.
