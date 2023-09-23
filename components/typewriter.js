@@ -9,7 +9,6 @@ import {
 } from "../utils";
 
 const DIRECTIONS = [-1, 0, 1];
-const MAX_DELAY = 100;
 
 export default class TypeWriter extends Component {
   static propTypes = {
@@ -26,8 +25,7 @@ export default class TypeWriter extends Component {
     ),
     fixed: PropTypes.bool,
     initialDelay: PropTypes.number,
-    maxDelay: PropTypes.number,
-    minDelay: PropTypes.number,
+    delay: PropTypes.number,
     onTyped: PropTypes.func,
     onTypingEnd: PropTypes.func,
     style: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
@@ -37,8 +35,7 @@ export default class TypeWriter extends Component {
   static defaultProps = {
     fixed: false,
     initialDelay: 0,
-    maxDelay: MAX_DELAY,
-    minDelay: MAX_DELAY / 5,
+    delay: 100,
     onTyped() {},
     onTypingEnd() {},
     style: {},
@@ -103,7 +100,7 @@ export default class TypeWriter extends Component {
     }
 
     if (nextToken) {
-      let timeout = this.getRandomTimeout();
+      let timeout = this.props.delay;
 
       if (this.delayMap) {
         this.delayMap.forEach(({ at, delay }) => {
@@ -123,12 +120,6 @@ export default class TypeWriter extends Component {
 
   componentWillUnmount() {
     this.clearTimeout();
-  }
-
-  getRandomTimeout() {
-    const { maxDelay, minDelay } = this.props;
-
-    return maxDelay;
   }
 
   clearTimeout() {
@@ -162,8 +153,7 @@ export default class TypeWriter extends Component {
       children,
       fixed,
       initialDelay,
-      maxDelay,
-      minDelay,
+      delay,
       onTyped,
       onTypingEnd,
       typing,
